@@ -2,8 +2,13 @@ const express = require('express');
 const connectDB = require('./config/db')
 
 const app = express();
+
 //connect to mongoDb
 connectDB();
+
+//init middleware to convert request body to json
+app.use(express.json({ extended: false}));
+
 app.get('/' , (req,res) => res.send('API Running'))
 
 // define routes
