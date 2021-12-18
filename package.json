@@ -1,0 +1,34 @@
+{
+  "name": "instadev",
+  "version": "1.0.0",
+  "description": "Social Network for Developers",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sneharohra/instaDev.git"
+  },
+  "author": "Sneha Rohra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sneharohra/instaDev/issues"
+  },
+  "homepage": "https://github.com/sneharohra/instaDev#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.6",
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "gravatar": "^1.8.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.2",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^6.5.0",
+    "nodemon": "^2.0.15"
+  }
+}
