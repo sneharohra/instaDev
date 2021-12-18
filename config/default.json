@@ -1,3 +1,4 @@
 {
+    "jwtSecret" : "mysecret",
     "mongoURI" : "mongodb+srv://sneha123:sneha123@dev.mlmts.mongodb.net/instadev?retryWrites=true&w=majority"
 }
