@@ -227,5 +227,90 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     }
 });
 
+// @route   PUT api/profile/education
+// @desc    Add education
+// @access  Private
+router.put('/education', [auth, 
+[
+    check('school','School is required').not().isEmpty(),
+    check('degree','Degree is required').not().isEmpty(),
+    check('fieldofstudy','Field of study is required').not().isEmpty(),
+    check('from','Start date is required').not().isEmpty()
+]
+], async (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array() });
+    }
+
+    const {
+        school,
+        degree, 
+        fieldofstudy,
+        from, 
+        to, 
+        current,
+        description
+    } = req.body;
+
+    // Create education object
+    const newEdu = {
+        school,
+        degree, 
+        fieldofstudy,
+        from, 
+        to, 
+        current,
+        description
+    }
+
+    try{
+        // Profile present or not
+        const profile = await Profile.findOne({ user: req.user.id});
+        if(!profile){
+            return res.status(400).json({msg: 'There is no profile for this user'});
+        }
+
+        profile.education.unshift(newEdu);
+
+        // Add education to the database
+        await profile.save();
+
+        // Send success response
+        res.json(profile);
+
+    } catch(err){
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   DELETE api/profile/education/:edu_id
+// @desc    delete education
+// @access  Private
+router.delete('/education/:edu_id', auth, async (req, res) => {
+
+    try{
+        // Profile present or not
+        const profile = await Profile.findOne({ user: req.user.id});
+        if(!profile){
+            return res.status(400).json({msg: 'There is no profile for this user'});
+        }
+
+        const removeIndex = profile.education.map(item => item.id).indexOf(req.params.edu_id);
+        // Delete education from profile
+        profile.education.splice(removeIndex, 1);
+        
+        // Update database
+        await profile.save();
+
+        // Send success response
+        res.json(profile);
+
+    } catch(err){
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 module.exports = router;
