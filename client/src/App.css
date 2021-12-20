@@ -579,6 +579,6 @@ button {
 .alert-wrapper {
   position: fixed;
   top: 4rem;
-  right: 28rem;
+  right: 2rem;
   display: inline-block;
 }
