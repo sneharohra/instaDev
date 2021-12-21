@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
+const Post = require('../../models/Post');
 const User = require('../../models/User');
 const {check, validationResult} = require('express-validator');
 // bring in normalize to give us a proper url, regardless of what user entered
@@ -134,9 +135,11 @@ router.get('/user/:user_id', async (req, res) => {
 // @access  Private
 router.delete('/', auth, async (req, res) => {
     try{
+        // Remove user posts
+        await Post.deleteMany({user: req.user.id});
         await Profile.findOneAndRemove({user: req.user.id});
         await User.findOneAndRemove({_id: req.user.id});
-        //TODO: delete all posts
+        
         res.json({msg: 'User deleted'});
     } catch(err){
         console.error(err.message);
