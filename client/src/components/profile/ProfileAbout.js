@@ -7,7 +7,7 @@ const ProfileAbout = ({ profile : {
     user: {name}
 }}) => {
     return (
-        <div class="profile-about bg-light p-2">
+        <div className="profile-about bg-light p-2">
             {
                 bio && (
                     <Fragment>
