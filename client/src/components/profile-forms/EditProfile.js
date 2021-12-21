@@ -1,11 +1,12 @@
-import React, { Fragment, useState} from 'react'
+import React, { Fragment, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {createProfile } from '../../actions/profile'
+import { createProfile, getCurrentProfile } from '../../actions/profile'
 import { Link, useNavigate } from 'react-router-dom'
 
-const CreateProfile = ({ createProfile }) => {
-    const [ formData, setFormData ] = useState({
+const EditProfile = ({ profile: { profile, loading}, createProfile, getCurrentProfile }) => {
+    
+    const initialState = {
         company: '',
         website: '',
         location: '',
@@ -18,11 +19,31 @@ const CreateProfile = ({ createProfile }) => {
         linkedin: '',
         youtube: '',
         instagram: ''
-      }); 
+    }
+    
+    const [ formData, setFormData ] = useState(initialState); 
 
-      const [displaySocialInputs,toggleSocialInputs] = useState(false);
+    const [displaySocialInputs,toggleSocialInputs] = useState(false);
 
-      const {
+    useEffect(() => {
+        if (!profile) getCurrentProfile();
+        if (!loading && profile) {
+            const profileData = { ...initialState };
+            for (const key in profile) {
+              if (key in profileData) profileData[key] = profile[key];
+            }
+            for (const key in profile.social) {
+              if (key in profileData) profileData[key] = profile.social[key];
+            }
+            // the skills may be an array from our API response
+            if (Array.isArray(profileData.skills))
+              profileData.skills = profileData.skills.join(', ');
+            // set local state with the profileData
+            setFormData(profileData);
+        }
+    }, [loading])
+
+    const {
         company,
         website,
         location,
@@ -35,16 +56,15 @@ const CreateProfile = ({ createProfile }) => {
         linkedin,
         youtube,
         instagram
-      } = formData;
+    } = formData;
 
-      const navigate = useNavigate();
+    const navigate = useNavigate();
 
-      const onChange = e => setFormData({...formData, [e.target.name]: e.target.value })
-      const onSubmit = e => {
+    const onChange = e => setFormData({...formData, [e.target.name]: e.target.value })
+    const onSubmit = e => {
           e.preventDefault();
-          createProfile(formData, navigate);
-        
-        }
+          createProfile(formData, navigate, true);
+    }
 
     return (
     <section className="container">
@@ -139,23 +159,24 @@ const CreateProfile = ({ createProfile }) => {
           </Fragment>}
 
           <input type="submit" className="btn btn-primary my-1" />
-          <Link className="btn btn-light my-1" to="dashboard">Go Back</Link>
+          <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
         </form>
       </section>
 
     )
 }
 
-CreateProfile.propTypes = { 
+EditProfile.propTypes = { 
     createProfile:PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
 };
     
 
 const mapStateToProps = state => ({
-
-
+    profile: state.profile,
 })
 
 
 
-export default connect(mapStateToProps, {createProfile})(CreateProfile);
+export default connect(mapStateToProps, {createProfile, getCurrentProfile})(EditProfile);

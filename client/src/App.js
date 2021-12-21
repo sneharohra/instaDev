@@ -11,7 +11,7 @@ import Login from './components/auth/Login';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import CreateProfile from './components/profile-forms/CreateProfile';
-
+import EditProfile from './components/profile-forms/EditProfile';
 
 //redux
 import {Provider} from 'react-redux';
@@ -42,6 +42,9 @@ const App = () => {
         </Route>
         <Route exact path = '/create-profile' element = {<PrivateRoute />} >
           <Route exact path = '/create-profile' element = {<CreateProfile />} />
+        </Route>
+        <Route exact path = '/edit-profile' element = {<PrivateRoute />} >
+          <Route exact path = '/edit-profile' element = {<EditProfile />} />
         </Route>
         </Routes>
     </Fragment>
