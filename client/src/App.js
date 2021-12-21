@@ -10,6 +10,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import CreateProfile from './components/profile-forms/CreateProfile';
 
 
 //redux
@@ -38,6 +39,9 @@ const App = () => {
         <Route exact path = '/register' element = {<Register />} />
         <Route exact path = '/dashboard' element = {<PrivateRoute />} >
           <Route exact path = '/dashboard' element = {<Dashboard />} />
+        </Route>
+        <Route exact path = '/create-profile' element = {<PrivateRoute />} >
+          <Route exact path = '/create-profile' element = {<CreateProfile />} />
         </Route>
         </Routes>
     </Fragment>
