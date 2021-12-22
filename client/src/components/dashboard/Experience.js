@@ -9,9 +9,9 @@ const Experience = ({ experience, deleteExperience }) => {
         <tr key={exp._id}>
             <td>{exp.company}</td>
             <td className='hide-sm'>{exp.title}</td>
-            <td><Moment format='YYYY/MM'>{exp.from}</Moment> - 
+            <td><Moment format='YYYY/MM/DD'>{exp.from}</Moment> - 
             {
-                exp.to === null ? ( ' Now') : (<Moment format='YYYY/MM'>{exp.to}</Moment>)
+                exp.to === null ? ( ' Now') : (<Moment format='YYYY/MM/DD'>{exp.to}</Moment>)
             }
             </td>
             <td>
