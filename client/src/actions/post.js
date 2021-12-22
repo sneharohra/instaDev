@@ -1,9 +1,12 @@
 import axios from 'axios';
+import { set } from 'mongoose';
 import {setAlert} from './alert';
 import{
+    DELETE_POST,
     GET_POSTS,
     POST_ERROR,
-    UPDATE_LIKES
+    UPDATE_LIKES,
+    
 } from './types';
 
 
@@ -50,6 +53,26 @@ export const removeLike = postId => async dispatch => {
             type: UPDATE_LIKES,
             payload: { postId, likes: res.data }
         })
+        
+    } catch (error) {
+        console.log(error)
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: error.response.statusText, status: error.response.status}
+        })
+        
+    }
+}
+
+export const deletPost =  id  => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/posts/${id}`)
+        dispatch({
+            type: DELETE_POST,
+            payload: id
+        })
+
+        dispatch(setAlert('Post Removed' , 'success'));
         
     } catch (error) {
         console.log(error)
