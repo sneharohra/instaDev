@@ -21,6 +21,10 @@ router.post('/', [auth, [
     try {
         const user = await User.findById(req.user.id).select('-password');
 
+        if(!user){
+            return res.status(400).send('User not found!');
+        }
+
         const newPost = new Post({
             text: req.body.text,
             name: user.name,

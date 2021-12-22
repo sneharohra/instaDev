@@ -23,6 +23,7 @@ const Navbar = ({logout, auth: {isAuthenticated, loading}}) => {
       </li>
     </ul>
   );
+  
   const guestLinks = (
     <ul>
       <li><Link to="/profiles">Developers</Link></li>
