@@ -8,9 +8,9 @@ const Education = ({ education, deleteEducation }) => {
         <tr key={edu._id}>
             <td>{edu.school}</td>
             <td className='hide-sm'>{edu.degree}</td>
-            <td><Moment format='YYYY/MM'>{edu.from}</Moment> - 
+            <td><Moment format='YYYY/MM/DD'>{edu.from}</Moment> - 
             {
-                edu.to === null ? ( ' Now') : (<Moment format='YYYY/MM'>{edu.to}</Moment>)
+                edu.to === null ? ( ' Now') : (<Moment format='YYYY/MM/DD'>{edu.to}</Moment>)
             }
             </td>
             <td>
