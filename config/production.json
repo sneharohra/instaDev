@@ -1,0 +1,7 @@
+{
+    "jwtSecret" : "mysecret",
+    "mongoURI" : "mongodb+srv://sneha123:sneha123@dev.mlmts.mongodb.net/instadev?retryWrites=true&w=majority",
+    "githubClientId" : "f5190fe790b871d826a8",
+    "githubSecret" : "5c1aa6152334c6407d6e4059989d9d4bbdd149b8"
+
+}
