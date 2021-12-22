@@ -17,8 +17,8 @@ const Posts = ({ getPosts, post: { posts, loading }}) => {
                 <i className='fas fa-user'> Welcome to the Community!</i>
             </p> 
             {/*POSTFORM*/}
-            {posts.map(post =>(
-                <PostItem key = { post._id} post = { post } />
+            {posts.map(onepost =>(
+                <PostItem key = { onepost._id} post = { onepost } />
 
             ))}
 
