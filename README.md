@@ -2,8 +2,6 @@
 
 ## A platform for develpers to collaborate, ask, solve!
 
-### [Check it out](https://protected-basin-80232.herokuapp.com/)
-
 #### Features
 
 - Registration, Login and Logout
